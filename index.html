@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee App</title>
+</head>
+<body>
+    <h2>Employee App by HESHAM</h2>
+
+    <!-- Form for entering employee details -->
+    <form action="/" method="POST">
+        <label for="filename">File Name:</label>
+        <input type="text" id="filename" name="filename" required><br>
+
+        <label for="name">Employee Name:</label>
+        <input type="text" id="name" name="name" required><br>
+
+        <label for="job">Job Profile:</label>
+        <input type="text" id="job" name="job" required><br>
+
+        <label for="contract">Contract Type:</label>
+        <input type="text" id="contract" name="contract" required><br>
+
+        <label for="city">City:</label>
+        <input type="text" id="city" name="city" required><br>
+
+        <label for="phone">Phone Number:</label>
+        <input type="text" id="phone" name="phone" required><br>
+
+        <button type="submit">Save✅</button>
+    </form>
+
+    {% if qr_image %}
+        <h3>QR Code Generated:</h3>
+        <img src="{{ qr_image }}" alt="QR Code">
+    {% endif %}
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+</body>
+</html>
