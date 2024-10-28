@@ -8,7 +8,7 @@ from pydub.playback import play
 app = Flask(__name__)
 app.secret_key = 'supersecretkey'  # Replace with a strong secret key
 
-# Directory for QR code images and audio files
+# Directory for QR code images
 QR_DIR = 'static/qr_codes'
 os.makedirs(QR_DIR, exist_ok=True)
 

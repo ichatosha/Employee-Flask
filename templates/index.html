@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+    <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}" type="image/x-icon">
+
+</head>
+<body>
+    <header>
+        <a href="https://www.linkedin.com/in/ichatosha" target="_blank">
+            <h1>Employee App by HESHAM</h1>
+        </a>
+    </header>
+
+    <main>
+        <!-- Form for entering employee details -->
+        <form action="/" method="POST">
+            <label for="filename">File Name:</label>
+            <input type="text" id="filename" name="filename" required>
+            <button type="button" onclick="startRecognition('filename')">🎤</button>
+
+            <label for="name">Employee Name:</label>
+            <input type="text" id="name" name="name" required>
+            <button type="button" onclick="startRecognition('name')">🎤</button>
+
+            <label for="job">Job Profile:</label>
+            <input type="text" id="job" name="job" required>
+            <button type="button" onclick="startRecognition('job')">🎤</button>
+
+            <label for="contract">Contract Type:</label>
+            <input type="text" id="contract" name="contract" required>
+            <button type="button" onclick="startRecognition('contract')">🎤</button>
+
+            <label for="city">City:</label>
+            <input type="text" id="city" name="city" required>
+            <button type="button" onclick="startRecognition('city')">🎤</button>
+
+            <label for="phone">Phone Number:</label>
+            <input type="text" id="phone" name="phone" required>
+            <button type="button" onclick="startRecognition('phone')">🎤</button>
+            <br>
+            <button type="submit">Save ✅</button>
+        </form>
+
+        {% if qr_image %}
+            <div class="qr-code">
+                <h3>QR Code Generated:</h3>
+                <img src="{{ qr_image }}" alt="QR Code">
+            </div>
+        {% endif %}
+        
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class="message-list">
+                    {% for message in messages %}
+                        <li class="message">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+    </main>
+
+    <footer>
+        <p>© <span id="year"></span> Employee App. All rights reserved. Developed by 
+            <a href="https://www.linkedin.com/in/ichatosha" target="_blank">HESHAM</a>
+        </p>
+    </footer>
+    
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+
+    <script>
+        // JavaScript Voice Recognition for input fields
+        function startRecognition(inputId) {
+            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognition.lang = 'en-US';
+            recognition.interimResults = false;
+            recognition.maxAlternatives = 1;
+
+            recognition.start();
+
+            recognition.onresult = (event) => {
+                document.getElementById(inputId).value = event.results[0][0].transcript;
+            };
+
+            recognition.onerror = (event) => {
+                console.error("Speech recognition error detected: " + event.error);
+            };
+        }
+    </script>
+</body>
+</html>
