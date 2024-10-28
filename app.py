@@ -7,7 +7,7 @@ from pydub.playback import play
 
 app = Flask(__name__)
 app.secret_key = 'SoHesham07'
-
+path = '/home/HESHAM/mysite'
 # Directory for QR code images
 QR_DIR = 'static/qr_codes'
 os.makedirs(QR_DIR, exist_ok=True)
@@ -51,6 +51,9 @@ def index():
     # Play welcome sound when loading the page
     play_audio("static/sounds/welcome.wav")
     return render_template("index.html")
+@app.route("/")
+def index():
+    return render_template("index.html") 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 3000)))
